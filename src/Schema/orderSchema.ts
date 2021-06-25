@@ -1,4 +1,5 @@
-import { Schema, model } from 'mongoose';
+import { Schema, model, ObjectId} from 'mongoose';
+import mongoose from 'mongoose';
 
 export interface OrdersInterface{
   _id: string,
@@ -9,7 +10,6 @@ export interface OrdersInterface{
 }
 
 const ordersSchema = new Schema<OrdersInterface>({
-  _id: {type: String, required: true},
   restId: {type: String, required: true},
   clientId: {type: Number, required: true},
   orderContent: {type: Array, required: true},

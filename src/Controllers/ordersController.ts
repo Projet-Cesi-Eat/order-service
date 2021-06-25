@@ -15,4 +15,22 @@ export class OrdersServices {
     })
   }
 
+ /**
+   * GET one order ✅
+   */
+  public getOneOrder<OrdersInterface>(id: any) {
+    return new Promise<OrdersInterface>((resolve, reject) => {
+      orderModel.findById(
+        id,
+        (err: Error, orders: OrdersInterface) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(orders);
+          }
+        }
+      );
+    });
+  } 
 }
+
