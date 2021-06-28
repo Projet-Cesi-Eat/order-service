@@ -1,5 +1,5 @@
   
-import orderModel, { OrdersInterface } from '../schema/orderSchema'
+import orderModel, { OrdersInterface } from '../Schema/orderSchema'
 
 export class OrdersServices {
   
@@ -31,6 +31,65 @@ export class OrdersServices {
         }
       );
     });
-  } 
+  }
+    /**
+   * CREATE a new order ✅
+   */
+  public createOrder<OrdersInterface>(body: any) {
+    const newOrder = new orderModel({
+      restId: body.restId,
+      clientId: body.clientId,
+      orderContent: body.orderContent
+    });
+
+    return new Promise<OrdersInterface>((resolve, reject) => {
+      newOrder.save((err, order: any) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(order);
+        }
+      });
+    });
+  }
+
+  /**
+   * UPDATE order ✅
+   */
+  public updateOrder<OrdersInterface>(id: any, body: any) {
+    return new Promise<OrdersInterface>((resolve, reject) => {
+      orderModel.findByIdAndUpdate(
+        id,
+        body,
+        (err: any, order: any) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(order);
+          }
+        }
+      );
+    });
+  }
+
+  /**
+   * DELETE one restaurant ✅
+   */
+  public deleteOrder<OrdersInterface>(id: any) {
+    return new Promise<OrdersInterface>((resolve, reject) => {
+      orderModel.findByIdAndDelete(
+        id,
+        { strict: false },
+        (err: any, order: any) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(order);
+          }
+        }
+      );
+    });
+  }
 }
+
 
